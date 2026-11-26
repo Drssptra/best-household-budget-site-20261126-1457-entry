@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hearth &amp; Ledger — Household Budget</title>
+<meta name="description" content="Hearth & Ledger keeps one household's money in one place: income, spending, monthly budgets and savings goals, all saved on this device.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="#/">
+      <span class="brand-mark" aria-hidden="true">⌂</span>
+      <span class="brand-text"><strong>Hearth &amp; Ledger</strong><small>Household budget · November 2026</small></span>
+    </a>
+    <nav class="mainnav" aria-label="Main">
+      <a href="#/" data-route="dashboard">Dashboard</a>
+      <a href="#/transactions" data-route="transactions">Transactions</a>
+      <a href="#/budgets" data-route="budgets">Budgets</a>
+      <a href="#/insights" data-route="insights">Insights</a>
+      <a href="#/goals" data-route="goals">Goals</a>
+    </nav>
+    <div class="topbar-actions">
+      <button class="btn btn-primary" id="addTxTop" type="button">+ Add transaction</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap" id="view" aria-live="polite"></main>
+
+<footer class="wrap footer">
+  <p><strong>Hearth &amp; Ledger</strong> — a household budget kept on this device. Every figure you see is stored in your browser's local storage; nothing leaves the device and nothing is fetched from the internet.</p>
+  <p class="footer-links">
+    <a href="#/">Dashboard</a> · <a href="#/transactions">Transactions</a> · <a href="#/budgets">Budgets</a> · <a href="#/insights">Insights</a> · <a href="#/goals">Goals</a>
+  </p>
+  <p class="footer-note">Sample household data ships with the site so every page works on first open. Edit, add or delete anything — <button class="linklike" id="resetDemo" type="button">reset the sample data</button> any time.</p>
+</footer>
+
+<dialog id="txDialog" class="dialog">
+  <form id="txForm" method="dialog">
+    <h2 id="txDialogTitle">Add transaction</h2>
+    <input type="hidden" id="txId" value="">
+    <label>What was it?
+      <input type="text" id="txNote" required maxlength="80" placeholder="e.g. Weekly shop at Green Mart">
+    </label>
+    <div class="form-row">
+      <label>Amount ($)
+        <input type="number" id="txAmount" required min="0.01" step="0.01" inputmode="decimal" placeholder="0.00">
+      </label>
+      <label>Type
+        <select id="txKind">
+          <option value="expense">Expense</option>
+          <option value="income">Income</option>
+        </select>
+      </label>
+    </div>
+    <div class="form-row">
+      <label>Category
+        <select id="txCategory"></select>
+      </label>
+      <label>Date
+        <input type="date" id="txDate" required>
+      </label>
+    </div>
+    <div class="form-row">
+      <label>Paid from
+        <select id="txAccount">
+          <option>Joint checking</option>
+          <option>Joint savings</option>
+          <option>Cash wallet</option>
+          <option>Credit card</option>
+        </select>
+      </label>
+      <label>Household member
+        <select id="txMember">
+          <option>Maya</option>
+          <option>Jordan</option>
+          <option>Shared</option>
+        </select>
+      </label>
+    </div>
+    <p class="form-error" id="txError" hidden></p>
+    <div class="dialog-actions">
+      <button type="button" class="btn" id="txCancel">Cancel</button>
+      <button type="submit" class="btn btn-primary">Save transaction</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="budgetDialog" class="dialog">
+  <form id="budgetForm" method="dialog">
+    <h2 id="budgetDialogTitle">Set monthly budget</h2>
+    <p class="dialog-sub" id="budgetDialogSub"></p>
+    <input type="hidden" id="budgetCategory" value="">
+    <label>Monthly limit ($)
+      <input type="number" id="budgetAmount" required min="0" step="1" inputmode="decimal">
+    </label>
+    <p class="form-error" id="budgetError" hidden></p>
+    <div class="dialog-actions">
+      <button type="button" class="btn" id="budgetCancel">Cancel</button>
+      <button type="submit" class="btn btn-primary">Save budget</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="goalDialog" class="dialog">
+  <form id="goalForm" method="dialog">
+    <h2 id="goalDialogTitle">New savings goal</h2>
+    <input type="hidden" id="goalId" value="">
+    <label>Goal name
+      <input type="text" id="goalName" required maxlength="60" placeholder="e.g. New washing machine">
+    </label>
+    <div class="form-row">
+      <label>Target ($)
+        <input type="number" id="goalTarget" required min="1" step="1" inputmode="decimal">
+      </label>
+      <label>Saved so far ($)
+        <input type="number" id="goalSaved" required min="0" step="1" inputmode="decimal">
+      </label>
+    </div>
+    <label>Target date
+      <input type="date" id="goalDate">
+    </label>
+    <p class="form-error" id="goalError" hidden></p>
+    <div class="dialog-actions">
+      <button type="button" class="btn" id="goalCancel">Cancel</button>
+      <button type="submit" class="btn btn-primary">Save goal</button>
+    </div>
+  </form>
+</dialog>
+
+<script type="module" src="main.js"></script>
+</body>
+</html>
